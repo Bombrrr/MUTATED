@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwvsjpgd3ig3v"]
+
+[ext_resource type="PackedScene" uid="uid://dibgkdjni54jm" path="res://MODELS/door.glb" id="1_akthl"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/door.gd" id="2_yjiv4"]
+[ext_resource type="Shader" uid="uid://xsifwx1w44j" path="res://OTHERS/DOOR.tres" id="3_2dvdq"]
+[ext_resource type="PackedScene" uid="uid://biqs7oht3ysc" path="res://SCENES/BLUEPRINTS/FURNITURE/CARD_SCANNER.tscn" id="4_bntko"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bejbm"]
+seed = 14
+fractal_gain = 0.6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tucxa"]
+seamless = true
+noise = SubResource("FastNoiseLite_bejbm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_078ny"]
+render_priority = 0
+shader = ExtResource("3_2dvdq")
+shader_parameter/Roughness = SubResource("NoiseTexture2D_tucxa")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0w2r"]
+size = Vector3(0.4, 4, 2.75)
+
+[node name="door" instance=ExtResource("1_akthl")]
+script = ExtResource("2_yjiv4")
+
+[node name="Cube" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_078ny")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.99838, -0.0712891)
+shape = SubResource("BoxShape3D_u0w2r")
+
+[node name="card scanner" parent="." index="3" instance=ExtResource("4_bntko")]
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.28623, 2.3757, 1.5327)
+
+[node name="Timer" type="Timer" parent="." index="4"]
+one_shot = true
+
+[connection signal="color" from="card scanner" to="." method="_on_card_scanner_color"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,220 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpp33ewqcqd2y"]
+
+[ext_resource type="Theme" uid="uid://dfvsd7wt5baqf" path="res://OTHERS/main_theme.tres" id="1_jud4y"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/rebind.gd" id="2_r0xac"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/open_scene.gd" id="3_cug5m"]
+[ext_resource type="Script" path="res://SCENES/MENU/slider.gd" id="4_pk3fq"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/toggle.gd" id="4_sous7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -419.0
+offset_top = -498.0
+offset_right = 420.0
+offset_bottom = 495.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+theme_override_font_sizes/font_size = 90
+text = "CONTROLS"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_vertical = 452
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_jud4y")
+alignment = 1
+
+[node name="INPUT MAPPING" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+theme_override_font_sizes/font_size = 75
+text = "INPUT MAPPING"
+horizontal_alignment = 1
+
+[node name="FORWARD" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "FORWARD: W"
+script = ExtResource("2_r0xac")
+action = "forward"
+key = "W"
+
+[node name="BACKWARD" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "BACKWARD: S"
+script = ExtResource("2_r0xac")
+action = "backward"
+key = "S"
+
+[node name="LEFT" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "LEFT: A"
+script = ExtResource("2_r0xac")
+action = "left"
+key = "A"
+
+[node name="RIGHT" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "RIGHT: D"
+script = ExtResource("2_r0xac")
+action = "right"
+key = "D"
+
+[node name="INTERACT" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "INTERACT: E"
+script = ExtResource("2_r0xac")
+action = "interact"
+key = "E"
+
+[node name="SPRINT" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "SPRINT: SHIFT
+"
+script = ExtResource("2_r0xac")
+action = "sprint"
+key = "SHIFT"
+
+[node name="JUMP" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "JUMP: SPACE"
+script = ExtResource("2_r0xac")
+action = "jump"
+key = "SPACE"
+
+[node name="CROUCH" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "CROUCH: CONTROL"
+script = ExtResource("2_r0xac")
+action = "crouch"
+key = "CONTROL"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_jud4y")
+alignment = 1
+
+[node name="TOGGLE SETTINGS" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+theme_override_font_sizes/font_size = 75
+text = "TOGGLE SETTINGS
+"
+horizontal_alignment = 1
+
+[node name="SPRINT_TOGGLE" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "SPRINT: HOLD"
+script = ExtResource("4_sous7")
+type = "sprint"
+
+[node name="CROUCH_TOGGLE" type="Button" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "CROUCH: HOLD"
+script = ExtResource("4_sous7")
+type = "crouch"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_jud4y")
+alignment = 1
+
+[node name="SLIDERS" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+theme_override_font_sizes/font_size = 75
+text = "TOGGLE SETTINGS
+"
+horizontal_alignment = 1
+
+[node name="SENSITIVITY" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "MOUSE SENSITIVITY: 50
+"
+horizontal_alignment = 1
+
+[node name="SENSITIVITY_SLIDER" type="HSlider" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+layout_direction = 2
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+min_value = 1.0
+value = 50.0
+scrollable = false
+tick_count = 21
+script = ExtResource("4_pk3fq")
+
+[node name="FOV" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+text = "FOV: 69"
+horizontal_alignment = 1
+
+[node name="FOV_SLIDER" type="HSlider" parent="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3"]
+layout_direction = 2
+layout_mode = 2
+theme = ExtResource("1_jud4y")
+min_value = 1.0
+value = 69.0
+scrollable = false
+tick_count = 21
+script = ExtResource("4_pk3fq")
+
+[node name="EXIT" type="Button" parent="."]
+layout_mode = 2
+offset_left = 452.0
+offset_top = 443.0
+offset_right = 915.0
+offset_bottom = 512.0
+theme = ExtResource("1_jud4y")
+text = "EXIT TO MENU"
+script = ExtResource("3_cug5m")
+scene_path = "res://SCENES/MENU/MENU.tscn"
+
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2/SPRINT_TOGGLE" to="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2/SPRINT_TOGGLE" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2/CROUCH_TOGGLE" to="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer2/CROUCH_TOGGLE" method="_on_pressed"]
+[connection signal="drag_ended" from="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/SENSITIVITY_SLIDER" to="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/SENSITIVITY_SLIDER" method="_on_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/FOV_SLIDER" to="VBoxContainer/ScrollContainer/VBoxContainer3/VBoxContainer3/FOV_SLIDER" method="_on_value_changed"]
+[connection signal="pressed" from="EXIT" to="EXIT" method="_on_pressed"]

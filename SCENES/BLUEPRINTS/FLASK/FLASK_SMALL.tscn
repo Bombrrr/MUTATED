@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://duo8t0x8q4oh3"]
+
+[ext_resource type="PackedScene" uid="uid://clcwa05mqt4ia" path="res://MODELS/FLASK.glb" id="1_yngx0"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/flask.gd" id="2_8ry34"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/label.gd" id="3_lt37p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j721a"]
+transparency = 1
+albedo_color = Color(0.513233, 0.513233, 0.513233, 0.392157)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rnkws"]
+frequency = 0.0045
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y42i8"]
+noise = SubResource("FastNoiseLite_rnkws")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwvrk"]
+albedo_color = Color(0.358023, 0.167508, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_y42i8")
+
+[sub_resource type="SphereMesh" id="SphereMesh_d1et0"]
+radius = 0.125
+height = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b670d"]
+transparency = 1
+albedo_color = Color(0, 0.440714, 0.770934, 0.866667)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vbesa"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxhr4"]
+radius = 0.354753
+height = 0.76072
+
+[node name="FLASK" instance=ExtResource("1_yngx0")]
+script = ExtResource("2_8ry34")
+
+[node name="Sphere" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_j721a")
+
+[node name="Cylinder" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pwvrk")
+
+[node name="Liquid" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00511265, 0)
+mesh = SubResource("SphereMesh_d1et0")
+surface_material_override/0 = SubResource("StandardMaterial3D_b670d")
+
+[node name="interact_button" type="Sprite3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0145959, 0.500032, 0)
+visible = false
+pixel_size = 0.0005
+billboard = 1
+texture = SubResource("ViewportTexture_vbesa")
+
+[node name="SubViewport" type="SubViewport" parent="." index="4"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(450, 490)
+
+[node name="Label" type="Label" parent="SubViewport" index="0"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 400
+text = "[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_lt37p")
+
+[node name="Timer" type="Timer" parent="SubViewport/Label" index="0"]
+
+[node name="Area3D" type="Area3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0370741, 0.0529239, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("CapsuleShape3D_gxhr4")
+
+[connection signal="timeout" from="SubViewport/Label/Timer" to="SubViewport/Label" method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

@@ -1,0 +1,292 @@
+[gd_scene load_steps=22 format=3 uid="uid://cnnekp1siotkw"]
+
+[ext_resource type="Script" path="res://SCRIPTS/PLAYER/player.gd" id="1_1vqpu"]
+[ext_resource type="Texture2D" uid="uid://xch6sadbjfp6" path="res://IMAGES/FLASK.png" id="2_1a2d1"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/score.gd" id="3_cdkxa"]
+[ext_resource type="Texture2D" uid="uid://0tubyisxf2ew" path="res://IMAGES/Untitled.png" id="4_ui4fn"]
+[ext_resource type="Script" path="res://SCENES/BLUEPRINTS/PLAYER/pause_menu.gd" id="5_drq4p"]
+[ext_resource type="Texture2D" uid="uid://3yjlnfti3pgv" path="res://IMAGES/Untitled(2).jpg" id="5_hq7sv"]
+[ext_resource type="Theme" uid="uid://dfvsd7wt5baqf" path="res://OTHERS/main_theme.tres" id="6_muec4"]
+[ext_resource type="Script" path="res://SCENES/BLUEPRINTS/PLAYER/resume_game.gd" id="7_nt4lt"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/open_scene.gd" id="7_s5b5g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mg7h1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i4dph"]
+radius = 0.001
+height = 1.25
+
+[sub_resource type="Animation" id="Animation_r4few"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Neck:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ttnab"]
+resource_name = "crouch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0.75, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Neck:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jx12q"]
+_data = {
+"RESET": SubResource("Animation_r4few"),
+"crouch": SubResource("Animation_ttnab")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m0gif"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gnuax"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lvxib"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sa30y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llpjw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Shader" id="Shader_gonlv"]
+code = "shader_type canvas_item;
+
+uniform float lod: hint_range(0.0, 5) = 0.0;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dd7ov"]
+shader = SubResource("Shader_gonlv")
+shader_parameter/lod = 2.64
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_1vqpu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_mg7h1")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3d" type="Camera3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+fov = 70.0
+
+[node name="INTERACT_DETECTION" type="Area3D" parent="Neck/Camera3d" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0513246, -1.16954)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Neck/Camera3d/INTERACT_DETECTION"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.500664)
+shape = SubResource("CapsuleShape3D_i4dph")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jx12q")
+}
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("SphereShape3D_m0gif")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="UI" type="CanvasLayer" parent="Control"]
+
+[node name="SCORE" type="Button" parent="Control/UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -311.0
+offset_bottom = 178.0
+grow_horizontal = 0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 90
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gnuax")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lvxib")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_sa30y")
+theme_override_styles/normal = SubResource("StyleBoxFlat_llpjw")
+text = "0"
+icon = ExtResource("2_1a2d1")
+alignment = 0
+icon_alignment = 2
+script = ExtResource("3_cdkxa")
+
+[node name="Label" type="Label" parent="Control/UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 475.0
+offset_bottom = 475.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_ui4fn")
+
+[node name="Pause menu" type="CanvasLayer" parent="Control"]
+process_mode = 3
+script = ExtResource("5_drq4p")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Pause menu"]
+modulate = Color(1, 1, 1, 0.447059)
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("5_hq7sv")
+
+[node name="TextureRect2" type="TextureRect" parent="Control/Pause menu"]
+modulate = Color(1, 1, 1, 0.447059)
+z_index = 1
+material = SubResource("ShaderMaterial_dd7ov")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("5_hq7sv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Pause menu"]
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -224.0
+offset_right = 498.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("6_muec4")
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Pause menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_muec4")
+theme_override_font_sizes/font_size = 111
+text = "PAUSE MENU"
+horizontal_alignment = 1
+
+[node name="RESUME GAME" type="Button" parent="Control/Pause menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_muec4")
+theme_override_font_sizes/font_size = 69
+text = "RESUME GAME"
+script = ExtResource("7_nt4lt")
+
+[node name="SETTINGS" type="Button" parent="Control/Pause menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_muec4")
+theme_override_font_sizes/font_size = 69
+text = "SETTINGS"
+
+[node name="EXIT MENU" type="Button" parent="Control/Pause menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_muec4")
+theme_override_font_sizes/font_size = 69
+text = "EXIT TO MENU"
+script = ExtResource("7_s5b5g")
+scene_path = "res://SCENES/MENU/MENU.tscn"
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+[connection signal="pressed" from="Control/Pause menu/VBoxContainer/RESUME GAME" to="Control/Pause menu/VBoxContainer/RESUME GAME" method="_on_pressed"]
+[connection signal="pressed" from="Control/Pause menu/VBoxContainer/EXIT MENU" to="Control/Pause menu/VBoxContainer/EXIT MENU" method="_on_pressed"]
+[connection signal="timeout" from="Timer" to="Control/UI/SCORE" method="_on_timer_timeout"]

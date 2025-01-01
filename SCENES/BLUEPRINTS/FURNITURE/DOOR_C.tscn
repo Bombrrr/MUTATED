@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://10muw43y4vcy"]
+
+[ext_resource type="PackedScene" uid="uid://dibgkdjni54jm" path="res://MODELS/door.glb" id="1_fuesi"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/close.gd" id="2_nbee1"]
+[ext_resource type="Shader" uid="uid://xsifwx1w44j" path="res://OTHERS/DOOR.tres" id="3_oxoxo"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bejbm"]
+seed = 14
+fractal_gain = 0.6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tucxa"]
+seamless = true
+noise = SubResource("FastNoiseLite_bejbm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_078ny"]
+render_priority = 0
+shader = ExtResource("3_oxoxo")
+shader_parameter/Roughness = SubResource("NoiseTexture2D_tucxa")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0w2r"]
+size = Vector3(0.4, 4, 2.75)
+
+[node name="door" instance=ExtResource("1_fuesi")]
+script = ExtResource("2_nbee1")
+
+[node name="Cube" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_078ny")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.99838, -0.0712891)
+shape = SubResource("BoxShape3D_u0w2r")
+
+[node name="Timer" type="Timer" parent="." index="3"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

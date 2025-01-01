@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://c820mupvgvgvs"]
+
+[ext_resource type="Theme" uid="uid://dfvsd7wt5baqf" path="res://OTHERS/main_theme.tres" id="1_kvp2y"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/exit_game.gd" id="2_us3wi"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/open_scene.gd" id="3_fu7ks"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -232.0
+offset_right = 520.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_kvp2y")
+
+[node name="INPUT MAPPING" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_kvp2y")
+theme_override_font_sizes/font_size = 75
+text = "ARE YOU SURE YOU WANT TO EXIT"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_kvp2y")
+
+[node name="YES" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_kvp2y")
+text = "Yes"
+script = ExtResource("2_us3wi")
+
+[node name="NO" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_kvp2y")
+text = "NO"
+script = ExtResource("3_fu7ks")
+scene_path = "res://SCENES/MENU/MENU.tscn"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/YES" to="VBoxContainer/HBoxContainer/YES" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NO" to="VBoxContainer/HBoxContainer/NO" method="_on_pressed"]

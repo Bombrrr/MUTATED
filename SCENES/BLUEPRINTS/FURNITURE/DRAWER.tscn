@@ -1,0 +1,123 @@
+[gd_scene load_steps=13 format=3 uid="uid://j1yhbekadqvr"]
+
+[ext_resource type="PackedScene" uid="uid://cb2sgrahxenhd" path="res://MODELS/LAB_DRAWERS.glb" id="1_iiuqt"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/drawer.gd" id="2_aycsb"]
+[ext_resource type="PackedScene" uid="uid://db6ir0blthl0v" path="res://SCENES/BLUEPRINTS/FLASK/FLASK_BIG.tscn" id="3_0l6si"]
+[ext_resource type="PackedScene" uid="uid://duo8t0x8q4oh3" path="res://SCENES/BLUEPRINTS/FLASK/FLASK_SMALL.tscn" id="4_8owfl"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/label.gd" id="5_yc7mr"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kx87u"]
+data = PackedVector3Array(1, 0.7037, 11.2074, -1, 0.7037, 13.2074, -1, 0.7037, 11.2074, 1, 0.7037, 11.2074, 1, 0.7037, 13.2074, -1, 0.7037, 13.2074, 1, -1.2963, 13.2074, -1, 0.7037, 13.2074, 1, 0.7037, 13.2074, 1, -1.2963, 13.2074, -1, -1.2963, 13.2074, -1, 0.7037, 13.2074, -1, -1.2963, 13.2074, -1, 0.7037, 11.2074, -1, 0.7037, 13.2074, -1, -1.2963, 13.2074, -1, -1.2963, 11.2074, -1, 0.7037, 11.2074, -1, -1.2963, 11.2074, 1, -1.2963, 13.2074, 1, -1.2963, 11.2074, -1, -1.2963, 11.2074, -1, -1.2963, 13.2074, 1, -1.2963, 13.2074, 1, -1.2963, 11.2074, 1, 0.7037, 13.2074, 1, 0.7037, 11.2074, 1, -1.2963, 11.2074, 1, -1.2963, 13.2074, 1, 0.7037, 13.2074, -1, -1.2963, 11.2074, 1, 0.7037, 11.2074, -1, 0.7037, 11.2074, -1, -1.2963, 11.2074, 1, -1.2963, 11.2074, 1, 0.7037, 11.2074, 1.0101, 0.7259, -13.3333, -1.0101, 0.7259, 13.3333, -1.0101, 0.7259, -13.3333, 1.0101, 0.7259, -13.3333, 1.0101, 0.7259, 13.3333, -1.0101, 0.7259, 13.3333, 1.0101, 0.4593, 13.3333, -1.0101, 0.7259, 13.3333, 1.0101, 0.7259, 13.3333, 1.0101, 0.4593, 13.3333, -1.0101, 0.4593, 13.3333, -1.0101, 0.7259, 13.3333, -1.0101, 0.4593, 13.3333, -1.0101, 0.7259, -13.3333, -1.0101, 0.7259, 13.3333, -1.0101, 0.4593, 13.3333, -1.0101, 0.4593, -13.3333, -1.0101, 0.7259, -13.3333, -1.0101, 0.4593, -13.3333, 1.0101, 0.4593, 13.3333, 1.0101, 0.4593, -13.3333, -1.0101, 0.4593, -13.3333, -1.0101, 0.4593, 13.3333, 1.0101, 0.4593, 13.3333, 1.0101, 0.4593, -13.3333, 1.0101, 0.7259, 13.3333, 1.0101, 0.7259, -13.3333, 1.0101, 0.4593, -13.3333, 1.0101, 0.4593, 13.3333, 1.0101, 0.7259, 13.3333, -1.0101, 0.4593, -13.3333, 1.0101, 0.7259, -13.3333, -1.0101, 0.7259, -13.3333, -1.0101, 0.4593, -13.3333, 1.0101, 0.4593, -13.3333, 1.0101, 0.7259, -13.3333, 1, 0.7037, -13.2074, -1, 0.7037, -11.2074, -1, 0.7037, -13.2074, 1, 0.7037, -13.2074, 1, 0.7037, -11.2074, -1, 0.7037, -11.2074, 1, -1.2963, -11.2074, -1, 0.7037, -11.2074, 1, 0.7037, -11.2074, 1, -1.2963, -11.2074, -1, -1.2963, -11.2074, -1, 0.7037, -11.2074, -1, -1.2963, -11.2074, -1, 0.7037, -13.2074, -1, 0.7037, -11.2074, -1, -1.2963, -11.2074, -1, -1.2963, -13.2074, -1, 0.7037, -13.2074, -1, -1.2963, -13.2074, 1, -1.2963, -11.2074, 1, -1.2963, -13.2074, -1, -1.2963, -13.2074, -1, -1.2963, -11.2074, 1, -1.2963, -11.2074, 1, -1.2963, -13.2074, 1, 0.7037, -11.2074, 1, 0.7037, -13.2074, 1, -1.2963, -13.2074, 1, -1.2963, -11.2074, 1, 0.7037, -11.2074, -1, -1.2963, -13.2074, 1, 0.7037, -13.2074, -1, 0.7037, -13.2074, -1, -1.2963, -13.2074, 1, -1.2963, -13.2074, 1, 0.7037, -13.2074)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tcnn3"]
+radius = 0.246626
+height = 1.94151
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hbiy3"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_v72r4"]
+resource_name = "CLOSE"
+length = 10.4167
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_005")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.951769, -0.290417, -6.77611e-09, 8.33333, 1, 0.332753, -0.290417, -6.77611e-09, 10.4167, 1, 0.529551, -0.290417, -6.77611e-09)
+
+[sub_resource type="Animation" id="Animation_uy2lq"]
+resource_name = "OPEN"
+length = 10.4167
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_005")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.332753, -0.290417, -6.77611e-09, 0.0333333, 1, 0.332753, -0.290417, -6.77611e-09, 0.0666667, 1, 0.334866, -0.290417, -6.77611e-09, 8.33333, 1, 1.03343, -0.290417, -6.77611e-09, 10.4167, 1, 0.951769, -0.290417, -6.77611e-09)
+
+[sub_resource type="Animation" id="Animation_ikkrq"]
+resource_name = "OPEN_O"
+length = 10.4167
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cube_005")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.529551, -0.290417, -6.77611e-09, 8.33333, 1, 1.02947, -0.290417, -6.77611e-09, 10.4167, 1, 0.951769, -0.290417, -6.77611e-09)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wnvq1"]
+_data = {
+"CLOSE": SubResource("Animation_v72r4"),
+"OPEN": SubResource("Animation_uy2lq"),
+"OPEN_O": SubResource("Animation_ikkrq")
+}
+
+[node name="LAB_DRAWERS" instance=ExtResource("1_iiuqt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+script = ExtResource("2_aycsb")
+small_chance = 333
+range = 500
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube_002" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_002/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_kx87u")
+
+[node name="Cube_005" parent="." index="1"]
+transform = Transform3D(0.45, 0, 0, 0, 0.05, 0, 0, 0, 0.9, 0.332753, -0.290417, -6.77611e-09)
+
+[node name="DRAWER_DETECTION" type="Area3D" parent="Cube_005" index="0"]
+transform = Transform3D(2.22222, 0, 0, 0, 20, 0, 0, 0, 1.11111, 0.66202, 1.68704, 7.52901e-09)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube_005/DRAWER_DETECTION" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.127152, 0, 0)
+shape = SubResource("CapsuleShape3D_tcnn3")
+
+[node name="interact_button" type="Sprite3D" parent="Cube_005" index="1"]
+transform = Transform3D(2.22222, 0, 0, 0, 20, 0, 0, 0, 1.11111, 0.418953, 10.3953, 7.52901e-09)
+visible = false
+pixel_size = 0.0005
+billboard = 1
+texture = SubResource("ViewportTexture_hbiy3")
+
+[node name="FLASK_B_D" parent="Cube_005" index="2" instance=ExtResource("3_0l6si")]
+transform = Transform3D(2.22222, 0, 0, 0, 20, 0, 0, 0, 1.11111, -0.739451, 0.565009, 0.560148)
+
+[node name="FLASK" parent="Cube_005" index="3" instance=ExtResource("4_8owfl")]
+transform = Transform3D(2.22222, 0, 0, 0, 20, 0, 0, 0, 1.11111, -0.739451, 0.565009, 0.560148)
+
+[node name="SubViewport" type="SubViewport" parent="." index="3"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(450, 490)
+
+[node name="Label" type="Label" parent="SubViewport" index="0"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 400
+text = "[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_yc7mr")
+
+[node name="Timer" type="Timer" parent="SubViewport/Label" index="0"]
+one_shot = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_wnvq1")
+}
+
+[node name="FLASK" parent="." index="5" instance=ExtResource("4_8owfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146261, -0.488574)
+
+[node name="FLASK_B_T" parent="." index="6" instance=ExtResource("3_0l6si")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146261, -0.488574)
+
+[connection signal="area_entered" from="Cube_005/DRAWER_DETECTION" to="." method="_on_drawer_detection_area_entered"]
+[connection signal="area_exited" from="Cube_005/DRAWER_DETECTION" to="." method="_on_drawer_detection_area_exited"]
+[connection signal="timeout" from="SubViewport/Label/Timer" to="SubViewport/Label" method="_on_timer_timeout"]

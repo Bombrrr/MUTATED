@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmmuhghjt7cfq"]
+
+[ext_resource type="Theme" uid="uid://dfvsd7wt5baqf" path="res://OTHERS/main_theme.tres" id="1_70f2x"]
+[ext_resource type="Script" path="res://SCRIPTS/GAME/open_scene.gd" id="2_t311i"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -232.0
+offset_right = 520.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_70f2x")
+theme_override_constants/separation = 50
+
+[node name="THE LIFELESS CURE" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_70f2x")
+theme_override_font_sizes/font_size = 90
+text = "THE LIFELESS CURE"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="START GAME" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_70f2x")
+text = "START GAME"
+script = ExtResource("2_t311i")
+scene_path = "res://SCENES/LEVELS/Main.tscn"
+captured = true
+
+[node name="CONTROLS" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "CONTROLS"
+script = ExtResource("2_t311i")
+scene_path = "res://SCENES/MENU/CONTROLS.tscn"
+
+[node name="EXIT GAME" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "EXIT GAME"
+script = ExtResource("2_t311i")
+scene_path = "res://SCENES/MENU/EXIT.tscn"
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/START GAME" to="VBoxContainer/VBoxContainer/START GAME" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/CONTROLS" to="VBoxContainer/VBoxContainer/CONTROLS" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/EXIT GAME" to="VBoxContainer/VBoxContainer/EXIT GAME" method="_on_pressed"]

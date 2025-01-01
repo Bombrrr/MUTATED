@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=3 uid="uid://biqs7oht3ysc"]
+
+[ext_resource type="PackedScene" uid="uid://dhegaubxtsxx0" path="res://MODELS/card scanner.glb" id="1_2sj7q"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/card_scanner.gd" id="2_oj2wt"]
+[ext_resource type="Shader" uid="uid://d2y63pwniq17" path="res://OTHERS/CARD_SCANNER.tres" id="3_1ykhg"]
+[ext_resource type="Shader" uid="uid://bcywr15rh3028" path="res://OTHERS/CARD_SCANNER_CUBE.tres" id="3_x36ny"]
+[ext_resource type="Shader" uid="uid://c7rd445hkwtpy" path="res://OTHERS/CARD.tres" id="4_c07nk"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/sphere.gd" id="4_lwup4"]
+[ext_resource type="Script" path="res://SCRIPTS/INTERACTABLES/label.gd" id="7_0mot6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ft6n8"]
+render_priority = 0
+shader = ExtResource("3_x36ny")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vgim"]
+render_priority = 0
+shader = ExtResource("4_c07nk")
+
+[sub_resource type="BoxMesh" id="BoxMesh_kq3st"]
+size = Vector3(0.3, 2.1, 2.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l0r2k"]
+albedo_color = Color(0, 0.247157, 0.622257, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_veva2"]
+render_priority = 0
+shader = ExtResource("3_1ykhg")
+shader_parameter/Light_Color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f53tn"]
+radius = 0.344677
+height = 0.689354
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_o1dln"]
+viewport_path = NodePath("SubViewport")
+
+[node name="card scanner" instance=ExtResource("1_2sj7q")]
+script = ExtResource("2_oj2wt")
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ft6n8")
+
+[node name="Cube_001" parent="." index="1"]
+visible = false
+surface_material_override/0 = SubResource("ShaderMaterial_2vgim")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube_001" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.624231, 0, 0)
+mesh = SubResource("BoxMesh_kq3st")
+surface_material_override/0 = SubResource("StandardMaterial3D_l0r2k")
+
+[node name="Sphere" parent="." index="2"]
+surface_material_override/0 = SubResource("ShaderMaterial_veva2")
+script = ExtResource("4_lwup4")
+
+[node name="Area3D" type="Area3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.16397, 0)
+shape = SubResource("CapsuleShape3D_f53tn")
+
+[node name="interact_button" type="Sprite3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00166968, 0.434781, 0.227112)
+visible = false
+pixel_size = 0.0005
+billboard = 1
+texture = SubResource("ViewportTexture_o1dln")
+
+[node name="SubViewport" type="SubViewport" parent="." index="6"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(450, 490)
+
+[node name="Label" type="Label" parent="SubViewport" index="0"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 400
+text = "[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_0mot6")
+
+[node name="Timer" type="Timer" parent="SubViewport/Label" index="0"]
+one_shot = true
+
+[connection signal="color" from="." to="Sphere" method="_on_card_scanner_color"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
+[connection signal="timeout" from="SubViewport/Label/Timer" to="SubViewport/Label" method="_on_timer_timeout"]

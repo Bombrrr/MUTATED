@@ -1,0 +1,270 @@
+[gd_scene load_steps=12 format=3 uid="uid://bdm4flyohl4eh"]
+
+[ext_resource type="Script" path="res://SCRIPTS/GAME/main.gd" id="1_ua2mg"]
+[ext_resource type="PackedScene" uid="uid://b3ro3623efq6g" path="res://SCENES/BLUEPRINTS/ITEMS/OTHERS/grass.tscn" id="2_5jvgq"]
+[ext_resource type="PackedScene" uid="uid://j1yhbekadqvr" path="res://SCENES/BLUEPRINTS/ITEMS/FURNITURE/DRAWER.tscn" id="3_ii7d4"]
+
+[sub_resource type="Shader" id="Shader_got4i"]
+code = "
+// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ProceduralSkyMaterial.
+
+shader_type sky;
+render_mode use_debanding;
+
+uniform vec4 sky_top_color : source_color = vec4(0.385, 0.454, 0.55, 1.0);
+uniform vec4 sky_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
+uniform float sky_curve : hint_range(0, 1) = 0.15;
+uniform float sky_energy = 1.0; // In Lux.
+uniform sampler2D sky_cover : filter_linear, source_color, hint_default_black;
+uniform vec4 sky_cover_modulate : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 ground_bottom_color : source_color = vec4(0.2, 0.169, 0.133, 1.0);
+uniform vec4 ground_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
+uniform float ground_curve : hint_range(0, 1) = 0.02;
+uniform float ground_energy = 1.0;
+uniform float sun_angle_max = 30.0;
+uniform float sun_curve : hint_range(0, 1) = 0.15;
+uniform float exposure : hint_range(0, 128) = 1.0;
+
+uniform sampler2D cloud_texture;
+uniform sampler2D cloud_texture2;
+uniform vec2 cloud_dir;
+uniform vec2 cloud_dir2;
+uniform vec2 cloud_scale;
+uniform float cloud_dist;
+uniform float cloud_speed;
+uniform float cloud_speed2;
+
+void sky() {
+	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
+	float c = (1.0 - v_angle / (PI * 0.5));
+	vec3 sky = mix(sky_horizon_color.rgb, sky_top_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / sky_curve), 0.0, 1.0));
+	sky *= sky_energy;
+
+	if (LIGHT0_ENABLED) {
+		float sun_angle = acos(dot(LIGHT0_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT0_SIZE) {
+			sky = LIGHT0_COLOR * LIGHT0_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT0_SIZE) / (sun_angle_max - LIGHT0_SIZE);
+			sky = mix(LIGHT0_COLOR * LIGHT0_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT1_ENABLED) {
+		float sun_angle = acos(dot(LIGHT1_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT1_SIZE) {
+			sky = LIGHT1_COLOR * LIGHT1_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT1_SIZE) / (sun_angle_max - LIGHT1_SIZE);
+			sky = mix(LIGHT1_COLOR * LIGHT1_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT2_ENABLED) {
+		float sun_angle = acos(dot(LIGHT2_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT2_SIZE) {
+			sky = LIGHT2_COLOR * LIGHT2_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT2_SIZE) / (sun_angle_max - LIGHT2_SIZE);
+			sky = mix(LIGHT2_COLOR * LIGHT2_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT3_ENABLED) {
+		float sun_angle = acos(dot(LIGHT3_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT3_SIZE) {
+			sky = LIGHT3_COLOR * LIGHT3_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT3_SIZE) / (sun_angle_max - LIGHT3_SIZE);
+			sky = mix(LIGHT3_COLOR * LIGHT3_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	vec4 sky_cover_texture = texture(sky_cover, SKY_COORDS);
+	sky += (sky_cover_texture.rgb * sky_cover_modulate.rgb) * sky_cover_texture.a * sky_cover_modulate.a * sky_energy;
+
+	c = (v_angle - (PI * 0.5)) / (PI * 0.5);
+	vec3 ground = mix(ground_horizon_color.rgb, ground_bottom_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
+	ground *= ground_energy;
+
+	vec2 sky_uv =  EYEDIR.xz / EYEDIR.y;
+	vec3 clouds = texture(cloud_texture, sky_uv * cloud_scale + TIME * cloud_dir * cloud_speed).rgb - texture(cloud_texture2, sky_uv * cloud_scale + TIME * cloud_dir2 * cloud_speed2).rgb;
+	clouds = clamp(clouds, 0.0, 1.0);
+	sky += clouds;
+	
+	COLOR = mix(ground, sky, step(0.0, EYEDIR.y)) * exposure;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fugen"]
+fractal_lacunarity = 0.0
+fractal_gain = 0.0
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5uolp"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_fugen")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qcrxi"]
+seed = 1
+fractal_gain = 0.4
+fractal_weighted_strength = 0.4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tuq82"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_qcrxi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sgqel"]
+shader = SubResource("Shader_got4i")
+shader_parameter/sky_top_color = Color(0.385, 0.454, 0.55, 1)
+shader_parameter/sky_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
+shader_parameter/sky_curve = 0.15
+shader_parameter/sky_energy = 1.0
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+shader_parameter/ground_bottom_color = Color(0.2, 0.169, 0.133, 1)
+shader_parameter/ground_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
+shader_parameter/ground_curve = 0.02
+shader_parameter/ground_energy = 1.0
+shader_parameter/sun_angle_max = 0.523599
+shader_parameter/sun_curve = 0.15
+shader_parameter/exposure = 1.0
+shader_parameter/cloud_dir = Vector2(-1, 1)
+shader_parameter/cloud_dir2 = Vector2(1, 1)
+shader_parameter/cloud_scale = Vector2(0.05, 0.05)
+shader_parameter/cloud_dist = 1.0
+shader_parameter/cloud_speed = 0.002
+shader_parameter/cloud_speed2 = 0.003
+shader_parameter/cloud_texture = SubResource("NoiseTexture2D_5uolp")
+shader_parameter/cloud_texture2 = SubResource("NoiseTexture2D_tuq82")
+
+[sub_resource type="Sky" id="Sky_axleg"]
+sky_material = SubResource("ShaderMaterial_sgqel")
+
+[sub_resource type="Environment" id="Environment_lx76u"]
+background_mode = 2
+sky = SubResource("Sky_axleg")
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1.5)
+script = ExtResource("1_ua2mg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lx76u")
+
+[node name="Grass Collection" type="Node3D" parent="."]
+
+[node name="Grass" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Grass2" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -3)
+
+[node name="Grass3" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3, 0, 0)
+
+[node name="Grass4" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3, 0, -3)
+
+[node name="Grass5" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6, 0, 0)
+
+[node name="Grass6" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6, 0, -3)
+
+[node name="Grass7" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9, 0, 0)
+
+[node name="Grass8" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9, 0, -3)
+
+[node name="Grass9" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -6)
+
+[node name="Grass10" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -9)
+
+[node name="Grass11" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3, 0, -6)
+
+[node name="Grass12" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3, 0, -9)
+
+[node name="Grass17" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6, 0, 0)
+
+[node name="Grass18" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6, 0, -3)
+
+[node name="Grass19" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3, 0, 0)
+
+[node name="Grass20" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3, 0, -3)
+
+[node name="Grass21" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6, 0, -6)
+
+[node name="Grass22" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6, 0, -9)
+
+[node name="Grass23" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3, 0, -6)
+
+[node name="Grass24" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3, 0, -9)
+
+[node name="Grass13" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6, 0, -6)
+
+[node name="Grass14" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6, 0, -9)
+
+[node name="Grass15" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9, 0, -6)
+
+[node name="Grass16" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9, 0, -9)
+
+[node name="Grass25" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 6)
+
+[node name="Grass26" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 3)
+
+[node name="Grass27" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3, 0, 6)
+
+[node name="Grass28" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -3, 0, 3)
+
+[node name="Grass29" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6, 0, 6)
+
+[node name="Grass30" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 6, 0, 3)
+
+[node name="Grass31" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3, 0, 6)
+
+[node name="Grass32" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 3, 0, 3)
+
+[node name="Grass33" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6, 0, 6)
+
+[node name="Grass34" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -6, 0, 3)
+
+[node name="Grass35" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9, 0, 6)
+
+[node name="Grass36" parent="Grass Collection" instance=ExtResource("2_5jvgq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9, 0, 3)
+
+[node name="Dirt Collection" type="Node3D" parent="."]
+
+[node name="LAB_DRAWERS" parent="." instance=ExtResource("3_ii7d4")]

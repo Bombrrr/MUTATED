@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk3dm2ykml700"]
+
+[ext_resource type="PackedScene" uid="uid://qp36n3x0e1ra" path="res://MODELS/ZOMBERT.glb" id="1_luw8v"]
+[ext_resource type="Script" path="res://SCRIPTS/ENITITIES/zombert.gd" id="2_5ydtu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dagxg"]
+radius = 0.180175
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dagxg")
+
+[node name="zombert model" parent="." instance=ExtResource("1_luw8v")]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0.175179, 0)
+script = ExtResource("2_5ydtu")
