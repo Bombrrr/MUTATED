@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpp33ewqcqd2y"]
 
 [ext_resource type="Theme" uid="uid://dfvsd7wt5baqf" path="res://OTHERS/main_theme.tres" id="1_jud4y"]
-[ext_resource type="Script" path="res://SCRIPTS/GAME/rebind.gd" id="2_r0xac"]
-[ext_resource type="Script" path="res://SCRIPTS/GAME/open_scene.gd" id="3_cug5m"]
-[ext_resource type="Script" path="res://SCENES/MENU/slider.gd" id="4_pk3fq"]
-[ext_resource type="Script" path="res://SCRIPTS/GAME/toggle.gd" id="4_sous7"]
+[ext_resource type="Script" path="res://SCRIPTS/MENU/rebind.gd" id="2_r0xac"]
+[ext_resource type="Script" path="res://SCRIPTS/MENU/open_scene.gd" id="3_cug5m"]
+[ext_resource type="Script" path="res://SCRIPTS/MENU/slider.gd" id="4_pk3fq"]
+[ext_resource type="Script" path="res://SCRIPTS/MENU/toggle.gd" id="4_sous7"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -40,7 +40,7 @@ horizontal_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 452
+scroll_vertical = 100
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 

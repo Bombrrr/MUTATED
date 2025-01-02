@@ -34,10 +34,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.99838, -0.0712891)
 shape = SubResource("BoxShape3D_u0w2r")
 
 [node name="card scanner" parent="." index="3" instance=ExtResource("4_bntko")]
-transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.28623, 2.3757, 1.5327)
+transform = Transform3D(-6.55671e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.55671e-08, 0.28623, 2.00073, 1.5327)
 
 [node name="Timer" type="Timer" parent="." index="4"]
 one_shot = true
+
+[node name="Node3D" type="Node3D" parent="." index="5"]
 
 [connection signal="color" from="card scanner" to="." method="_on_card_scanner_color"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

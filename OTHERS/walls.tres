@@ -1,0 +1,71 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://chxmcijaeq0dg"]
+
+[ext_resource type="Texture2D" uid="uid://ctnul6ufprnef" path="res://IMAGES/images.jpg" id="1_hjxq7"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_g5ukp"]
+texture = ExtResource("1_hjxq7")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_kpa1g"]
+output_port_for_preview = 0
+default_input_values = [0, Vector2(0, 0), 1, Vector2(1, 1), 2, Vector2(0.5, 0.5)]
+op_type = 1
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_3dl4b"]
+expanded_output_ports = [0]
+parameter_name = "tipcolor2"
+default_value_enabled = true
+default_value = Color(0.15656, 0.0727921, 1.20327e-08, 1)
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_3llgg"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(1, 1), 2, Vector2(0.5, 0.2)]
+op_type = 1
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_scyc6"]
+function = 1
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 tipcolor2 : source_color = vec4(0.156560, 0.072792, 0.000000, 1.000000);
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// ColorParameter:4
+	vec4 n_out4p0 = tipcolor2;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Mix:3
+	vec2 n_in3p2 = vec2(0.50000, 0.50000);
+	vec2 n_out3p0 = mix(vec2(n_out2p0.xy), vec2(n_out4p0.xy), n_in3p2);
+
+
+// Mix:5
+	vec2 n_in5p2 = vec2(0.50000, 0.20000);
+	vec2 n_out5p0 = mix(vec2(n_out4p0.xy), n_out3p0, n_in5p2);
+
+
+// Output:0
+	ALBEDO = vec3(n_out5p0, 0.0);
+
+
+}
+"
+nodes/vertex/2/node = SubResource("VisualShaderNodeUVFunc_scyc6")
+nodes/vertex/2/position = Vector2(-100, 240)
+nodes/fragment/0/position = Vector2(560, 100)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_g5ukp")
+nodes/fragment/2/position = Vector2(-100, 0)
+nodes/fragment/3/node = SubResource("VisualShaderNodeMix_kpa1g")
+nodes/fragment/3/position = Vector2(120, 400)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_3dl4b")
+nodes/fragment/4/position = Vector2(-420, 400)
+nodes/fragment/5/node = SubResource("VisualShaderNodeMix_3llgg")
+nodes/fragment/5/position = Vector2(360, 120)
+nodes/fragment/connections = PackedInt32Array(4, 0, 3, 1, 2, 0, 3, 0, 5, 0, 0, 0, 3, 0, 5, 1, 4, 0, 5, 0)

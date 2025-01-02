@@ -2,9 +2,9 @@ extends Node3D
 
 
 
-
-@export var amount: int
-@onready var rand
+@onready var turn: bool = false
+@onready var amount = 2
+@onready var rand = 2
 @onready var rand_f
 @onready var player: PackedScene = preload("res://SCENES/BLUEPRINTS/PLAYER/PLAYER.tscn")
 @onready var room1: PackedScene = preload("res://SCENES/LEVELS/LEVEL_1.tscn")
@@ -28,10 +28,24 @@ func room():
 
 
 func choose_room():
-	rand = randi_range(1, amount)
+	if not turn:
+		rand = randi_range(1,2)
+		print(rand)
+		if rand == 1:
+			find_straight()
+		else: find_turn()
+	else: find_straight()
+
+func find_straight():
+	turn = false
+	rand = randi_range(1,1)
 	if rand == 1:
 		room_i = room1.instantiate()
-	if rand == 2:
+
+func find_turn():
+	turn = true
+	rand = randi_range(1, 1)
+	if rand == 1:
 		room_i = room2.instantiate()
 
 func generate_room():

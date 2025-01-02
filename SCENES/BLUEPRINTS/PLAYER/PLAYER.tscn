@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://SCRIPTS/PLAYER/player.gd" id="1_1vqpu"]
 [ext_resource type="Texture2D" uid="uid://xch6sadbjfp6" path="res://IMAGES/FLASK.png" id="2_1a2d1"]
-[ext_resource type="Script" path="res://SCRIPTS/GAME/score.gd" id="3_cdkxa"]
+[ext_resource type="Script" path="res://SCRIPTS/MENU/score.gd" id="3_cdkxa"]
 [ext_resource type="Texture2D" uid="uid://0tubyisxf2ew" path="res://IMAGES/Untitled.png" id="4_ui4fn"]
 [ext_resource type="Script" path="res://SCENES/BLUEPRINTS/PLAYER/pause_menu.gd" id="5_drq4p"]
 [ext_resource type="Texture2D" uid="uid://3yjlnfti3pgv" path="res://IMAGES/Untitled(2).jpg" id="5_hq7sv"]
 [ext_resource type="Theme" uid="uid://dfvsd7wt5baqf" path="res://OTHERS/main_theme.tres" id="6_muec4"]
 [ext_resource type="Script" path="res://SCENES/BLUEPRINTS/PLAYER/resume_game.gd" id="7_nt4lt"]
-[ext_resource type="Script" path="res://SCRIPTS/GAME/open_scene.gd" id="7_s5b5g"]
+[ext_resource type="Script" path="res://SCRIPTS/MENU/open_scene.gd" id="7_s5b5g"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mg7h1"]
 

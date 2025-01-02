@@ -13,7 +13,6 @@ func _ready() -> void:
 		spawn_flask(flask_s)
 	elif spawn < 500:
 		spawn_flask(flask_b)
-	print(spawn)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -26,5 +25,4 @@ func spawn_flask(type):
 	else:
 		spawn_position = Vector3(self.position)
 	item.position = spawn_position
-	print(item.position)
 	add_child(item)

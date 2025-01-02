@@ -151,10 +151,9 @@ sky = SubResource("Sky_axleg")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_q3n4d")
+amount = 2
 
 [node name="Spawn_position" type="Node3D" parent="."]
-
-[node name="Node3D" parent="." instance=ExtResource("2_bw4vc")]
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -169,5 +168,7 @@ environment = SubResource("Environment_ollus")
 [node name="ALWAYS RUN" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("4_67hq5")
+
+[node name="Node3D" parent="." instance=ExtResource("2_bw4vc")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
