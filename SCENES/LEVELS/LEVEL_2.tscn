@@ -113,7 +113,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_il2jl")
 shape = SubResource("ConcavePolygonShape3D_2gi7l")
 
 [node name="MeshInstance3D13" parent="main objects" instance=ExtResource("3_0ppv7")]
-transform = Transform3D(9.16564, 0, 0, 0, 5, 0, 0, 0, 0.2, -3.7963, 2.16587, -13.5701)
+transform = Transform3D(9.16564, 0, 0, 0, 5, 0, 0, 0, 0.2, -3.796, 2.166, -13.6)
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_il2jl")
 
@@ -153,7 +153,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_il2jl")
 shape = SubResource("ConcavePolygonShape3D_nv6x8")
 
 [node name="MeshInstance3D15" parent="main objects" instance=ExtResource("3_0ppv7")]
-transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 10.1923, -6.56161, 2.063, -9.92226)
+transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 8.91135, -6.56161, 2.063, -9.20424)
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_il2jl")
 
