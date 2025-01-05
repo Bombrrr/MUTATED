@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bjxtakgaxmtvg" path="res://LEVEL_2.tres" id="5_ix6kh"]
 [ext_resource type="Shader" uid="uid://chxmcijaeq0dg" path="res://OTHERS/walls.tres" id="6_fo6po"]
 [ext_resource type="PackedScene" uid="uid://10muw43y4vcy" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR_C.tscn" id="7_7pdcw"]
-[ext_resource type="PackedScene" uid="uid://cnnekp1siotkw" path="res://SCENES/BLUEPRINTS/PLAYER/PLAYER.tscn" id="9_qbi6a"]
+[ext_resource type="PackedScene" uid="uid://bp7ybsjgld5ta" path="res://SCENES/BLUEPRINTS/FURNITURE/CARD.tscn" id="10_u7nw7"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_krysn"]
 viewport_path = NodePath("door/SubViewport")
@@ -192,7 +192,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 shape = SubResource("ConcavePolygonShape3D_2gi7l")
 
 [node name="MeshInstance3D6" parent="main objects" instance=ExtResource("3_rkoj4")]
-transform = Transform3D(-3.83912e-07, 0, 0.2, 0, 5, 0, -8.78289, 0, -8.74228e-09, 10.0097, 2.16587, -9.1433)
+transform = Transform3D(-3.83912e-07, 0, 0.2, 0, 5, 0, -8.78289, 0, -8.74228e-09, 9.99028, 2.16587, -9.1433)
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 
@@ -202,7 +202,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 shape = SubResource("ConcavePolygonShape3D_2gi7l")
 
 [node name="MeshInstance3D8" parent="main objects" instance=ExtResource("3_rkoj4")]
-transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 4, 10, 2.063, -2.74413)
+transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 4, 9.98058, 2.063, -2.74413)
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 
@@ -212,7 +212,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 shape = SubResource("ConcavePolygonShape3D_v3xnc")
 
 [node name="MeshInstance3D12" parent="main objects" instance=ExtResource("3_rkoj4")]
-transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 4, 10, 2.063, 2.75442)
+transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 4, 9.98058, 2.063, 2.75442)
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 
@@ -222,7 +222,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 shape = SubResource("ConcavePolygonShape3D_nv6x8")
 
 [node name="MeshInstance3D10" parent="main objects" instance=ExtResource("3_rkoj4")]
-transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 1.53207, 10, 4.89255, 0)
+transform = Transform3D(0.2, 0, 0, 0, 5, 0, 0, 0, 1.53207, 9.98058, 4.89255, 0)
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 
@@ -288,7 +288,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_8u4vs")
 [node name="door2" parent="." instance=ExtResource("7_7pdcw")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.395579, 0.0597042, 0.00954261)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("9_qbi6a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.428, 0.1, -4.40037)
+[node name="Card" parent="." instance=ExtResource("10_u7nw7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3984, 1.38831, -5.86575)
 
 [connection signal="visibility_changed" from="door2" to="door2" method="_on_visibility_changed"]

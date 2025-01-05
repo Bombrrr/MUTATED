@@ -55,7 +55,7 @@ size = Vector3(0.3, 2.1, 2.01)
 albedo_color = Color(0, 0.247157, 0.622257, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u6e2e"]
-radius = 0.287887
+radius = 0.243299
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5xu0l"]
 viewport_path = NodePath("SubViewport")
@@ -81,6 +81,7 @@ shape = SubResource("SphereShape3D_u6e2e")
 
 [node name="interact_button" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.291355, 0)
+visible = false
 pixel_size = 0.0005
 billboard = 1
 texture = SubResource("ViewportTexture_5xu0l")
@@ -101,3 +102,6 @@ script = ExtResource("2_m0th6")
 
 [node name="Timer" type="Timer" parent="SubViewport/Label"]
 one_shot = true
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-
+@onready var alpha = 0
 @onready var sprint: bool = false
 @export var toggle_crouch: bool = false
 @export var toggle_sprint: bool = false
@@ -11,7 +11,7 @@ extends CharacterBody3D
 const base_speed = 2.5
 const JUMP_VELOCITY = 4.5
 
-
+@onready var text: bool = true
 @onready var speed = base_speed
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -58,8 +58,13 @@ func _physics_process(delta: float) -> void:
 	#Scanner text
 	if Global.card_needed:
 		$Control/UI/Label2.show()
+		alpha += (255 - alpha)*0.1
+		if text:
+			$Timer2.start(2)
+			text = false
 	else:
-		$Control/UI/Label2.hide()
+		alpha += (0 - alpha)*0.02
+	$Control/UI/Label2.modulate.a8 = alpha
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -131,3 +136,8 @@ func crouching(state: bool):
 func _on_animation_player_animation_started(anim_name: StringName) -> void:
 	if anim_name == "crouch":
 		crouch = !crouch
+
+
+func _on_timer_2_timeout() -> void:
+	Global.card_needed = false
+	text = true
