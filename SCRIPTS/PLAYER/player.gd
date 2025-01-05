@@ -54,8 +54,13 @@ func _input(event: InputEvent) -> void:
 	
 	
 func _physics_process(delta: float) -> void:
-	#Shooting
-			
+	
+	#Scanner text
+	if Global.card_needed:
+		$Control/UI/Label2.show()
+	else:
+		$Control/UI/Label2.hide()
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

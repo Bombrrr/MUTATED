@@ -9,12 +9,17 @@ signal color
 @onready var anim = $AnimationPlayer
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("interact") and not interacted and looked:
-		emit_signal("color")
-		display.hide()
-		card.show()
-		anim.play("Cube_001Action")
-		interacted = true
+	if Input.is_action_just_pressed("interact") and not interacted and looked:
+		if Global.card:
+			emit_signal("color")
+			display.hide()
+			card.show()
+			anim.play("Cube_001Action")
+			interacted = true
+			Global.card = false
+		else:
+			Global.card_needed = true
+			
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:

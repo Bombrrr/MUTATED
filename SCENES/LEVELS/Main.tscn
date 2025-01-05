@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1rcvecrt05vc"]
+[gd_scene load_steps=12 format=3 uid="uid://c1rcvecrt05vc"]
 
 [ext_resource type="Script" path="res://SCRIPTS/GAME/generation.gd" id="1_q3n4d"]
-[ext_resource type="PackedScene" uid="uid://bdm4flyohl4eh" path="res://SCENES/LEVELS/LEVEL_1.tscn" id="2_bw4vc"]
 [ext_resource type="PackedScene" uid="uid://cnnekp1siotkw" path="res://SCENES/BLUEPRINTS/PLAYER/PLAYER.tscn" id="3_uas63"]
 [ext_resource type="Script" path="res://SCRIPTS/GAME/always_run.gd" id="4_67hq5"]
 
@@ -168,7 +167,5 @@ environment = SubResource("Environment_ollus")
 [node name="ALWAYS RUN" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("4_67hq5")
-
-[node name="Node3D" parent="." instance=ExtResource("2_bw4vc")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
