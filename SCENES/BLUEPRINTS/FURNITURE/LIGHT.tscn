@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3oj5b1p68emj"]
+
+[ext_resource type="PackedScene" uid="uid://djqdf0cykirhp" path="res://MODELS/scifi_light_04.glb" id="1_3gpxj"]
+
+[node name="Light" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_3gpxj")]
+transform = Transform3D(-0.02, 1.74846e-09, 0, -1.74846e-09, -0.02, 0, 0, 0, 0.02, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0117294, 0)
+light_size = 0.01
+shadow_enabled = true

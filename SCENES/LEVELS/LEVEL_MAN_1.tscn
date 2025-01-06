@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://x5vdieg0y2ci"]
+[gd_scene load_steps=20 format=3 uid="uid://x5vdieg0y2ci"]
 
 [ext_resource type="Script" path="res://SCRIPTS/GAME/lobby.gd" id="1_qumq7"]
 [ext_resource type="PackedScene" uid="uid://cwvsjpgd3ig3v" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR.tscn" id="2_12bq5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bjxtakgaxmtvg" path="res://LEVEL_2.tres" id="5_ix6kh"]
 [ext_resource type="Shader" uid="uid://chxmcijaeq0dg" path="res://OTHERS/walls.tres" id="6_fo6po"]
 [ext_resource type="PackedScene" uid="uid://10muw43y4vcy" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR_C.tscn" id="7_7pdcw"]
+[ext_resource type="PackedScene" uid="uid://d3oj5b1p68emj" path="res://SCENES/BLUEPRINTS/FURNITURE/LIGHT.tscn" id="10_q28u3"]
 [ext_resource type="PackedScene" uid="uid://bp7ybsjgld5ta" path="res://SCENES/BLUEPRINTS/FURNITURE/CARD.tscn" id="10_u7nw7"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_krysn"]
@@ -48,7 +49,7 @@ script = ExtResource("1_qumq7")
 transform = Transform3D(-0.6, 0, -5.24537e-08, 0, 0.6, 0, 5.24537e-08, 0, -0.6, 19.9851, 0.0906182, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="door"]
-transform = Transform3D(-4.37113e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113e-08, 0.191891, 4.36937, 2.8976e-08)
+transform = Transform3D(-4.37113e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113e-08, 0.217953, 4.36937, 3.12543e-08)
 texture = SubResource("ViewportTexture_krysn")
 
 [node name="SubViewport" type="SubViewport" parent="door"]
@@ -290,5 +291,11 @@ transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.395579, 0.0597042, 0.
 
 [node name="Card" parent="." instance=ExtResource("10_u7nw7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3984, 1.38831, -5.86575)
+
+[node name="Light" parent="." instance=ExtResource("10_q28u3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3402, 4.30511, -0.197257)
+
+[node name="Light2" parent="." instance=ExtResource("10_q28u3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3772, 4.30511, -0.197257)
 
 [connection signal="visibility_changed" from="door2" to="door2" method="_on_visibility_changed"]
