@@ -1,15 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://csn7bvnti4lp7"]
+[gd_scene load_steps=24 format=3 uid="uid://csn7bvnti4lp7"]
 
 [ext_resource type="Script" path="res://SCRIPTS/GAME/main.gd" id="1_r1fpn"]
 [ext_resource type="PackedScene" uid="uid://cwvsjpgd3ig3v" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR.tscn" id="2_2llxa"]
 [ext_resource type="PackedScene" uid="uid://dh508ffdh3kwv" path="res://SCENES/BLUEPRINTS/OTHERS/BASIC_COLLISON.tscn" id="3_0ppv7"]
+[ext_resource type="Texture2D" uid="uid://cnljtdsrrw8ul" path="res://IMAGES/LABEL.png" id="3_p53ey"]
 [ext_resource type="PackedScene" uid="uid://10muw43y4vcy" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR_C.tscn" id="4_1rdin"]
 [ext_resource type="Shader" uid="uid://da3ya57dginau" path="res://OTHERS/FLOOR.tres" id="4_5e5be"]
 [ext_resource type="Shader" uid="uid://chxmcijaeq0dg" path="res://OTHERS/walls.tres" id="4_26u1i"]
 [ext_resource type="PackedScene" uid="uid://j1yhbekadqvr" path="res://SCENES/BLUEPRINTS/FURNITURE/DRAWER.tscn" id="5_tb6oo"]
+[ext_resource type="PackedScene" uid="uid://d3oj5b1p68emj" path="res://SCENES/BLUEPRINTS/FURNITURE/LIGHT.tscn" id="8_cq3ws"]
+[ext_resource type="Script" path="res://SCENES/LEVELS/area_3d.gd" id="10_uibno"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_krysn"]
-viewport_path = NodePath("door/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_n1gou"]
+viewport_path = NodePath("door/SubViewport2")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_wjviy"]
 
@@ -49,6 +52,9 @@ render_priority = 0
 shader = ExtResource("4_26u1i")
 shader_parameter/tipcolor2 = Color(0.106646, 0.0426415, 3.00817e-09, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ek0ar"]
+size = Vector3(19.7361, 5.14893, 18.3931)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_r1fpn")
 
@@ -57,19 +63,35 @@ transform = Transform3D(7.15493e-09, 0, -0.6, 0, 0.6, 0, 0.6, 0, 7.15493e-09, 15
 
 [node name="Sprite3D" type="Sprite3D" parent="door"]
 transform = Transform3D(-4.37113e-08, 0, 1, 0, 1, 0, -1, 0, -4.37113e-08, 0.191891, 4.36937, 2.8976e-08)
-texture = SubResource("ViewportTexture_krysn")
+texture = SubResource("ViewportTexture_n1gou")
 
-[node name="SubViewport" type="SubViewport" parent="door"]
+[node name="SubViewport2" type="SubViewport" parent="door"]
 transparent_bg = true
-size = Vector2i(100, 100)
+size = Vector2i(160, 80)
 
-[node name="Label" type="Label" parent="door/SubViewport"]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="VBoxContainer" type="VBoxContainer" parent="door/SubViewport2"]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="door/SubViewport2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.304851, 0.310033, 0.243965, 1)
 theme_override_font_sizes/font_size = 69
 text = "69"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="door/SubViewport2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_p53ey")
 
 [node name="loc" type="Node3D" parent="door"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -226,4 +248,22 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.6687
 [node name="LAB_DRAWERS6" parent="." instance=ExtResource("5_tb6oo")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.8994, 1.15, -5.55409)
 
+[node name="Light" parent="." instance=ExtResource("8_cq3ws")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.72313, 4.30511, -0.197257)
+
+[node name="Light2" parent="." instance=ExtResource("8_cq3ws")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1645, 4.30511, -0.197257)
+
+[node name="Light3" parent="." instance=ExtResource("8_cq3ws")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.4802, 4.30511, -8.98104)
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("10_uibno")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2195, 2.07446, -4.42985)
+shape = SubResource("BoxShape3D_ek0ar")
+
 [connection signal="visibility_changed" from="door2" to="door2" method="_on_visibility_changed"]
+[connection signal="area_entered" from="Area3D" to="Area3D" method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D" to="Area3D" method="_on_area_exited"]

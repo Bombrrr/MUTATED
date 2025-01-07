@@ -17,6 +17,7 @@ func _input(event: InputEvent) -> void:
 			anim.play("Cube_001Action")
 			interacted = true
 			Global.card = false
+			Global.point += 100
 		else:
 			Global.card_needed = true
 			

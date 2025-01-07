@@ -17,7 +17,7 @@ func _ready() -> void:
 	Global.genrot = rot
 	Global.genloc = loc
 	num = Global.genromnum
-	$door/SubViewport/Label.text = var_to_str(Global.genromnum)
+	$door/SubViewport2/VBoxContainer/Label.text = var_to_str(Global.genromnum)
 	Global.genromnum += 1
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,9 +25,9 @@ func _process(delta: float) -> void:
 	if num < (Global.genromnum - 4):
 		self.queue_free()
 	elif num < (Global.genromnum - 2):
-		$"main objects/MeshInstance3D13".show()
-		$"main objects/MeshInstance3D14".show()
-		$"main objects/MeshInstance3D15".show()
+		$"NavigationRegion3D/main objects/MeshInstance3D13".show()
+		$"NavigationRegion3D/main objects/MeshInstance3D14".show()
+		$"NavigationRegion3D/main objects/MeshInstance3D15".show()
 		$door2.show()
 		$door2.global_position.y = 0.091
 		emit_signal("close")

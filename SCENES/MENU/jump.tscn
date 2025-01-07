@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1rcvecrt05vc"]
+[gd_scene load_steps=12 format=3 uid="uid://r444nvyg3nbs"]
 
-[ext_resource type="Script" path="res://SCRIPTS/GAME/generation.gd" id="1_q3n4d"]
-[ext_resource type="PackedScene" uid="uid://cnnekp1siotkw" path="res://SCENES/BLUEPRINTS/PLAYER/PLAYER.tscn" id="3_uas63"]
-[ext_resource type="Script" path="res://SCRIPTS/GAME/always_run.gd" id="4_67hq5"]
-[ext_resource type="PackedScene" uid="uid://x5vdieg0y2ci" path="res://SCENES/LEVELS/LEVEL_MAN_1.tscn" id="4_li0kw"]
+[ext_resource type="PackedScene" uid="uid://qp36n3x0e1ra" path="res://MODELS/ZOMBERT.glb" id="1_pdd6q"]
+[ext_resource type="Script" path="res://SCENES/MENU/jump.gd" id="1_xkfmf"]
+[ext_resource type="PackedScene" uid="uid://b3ro3623efq6g" path="res://SCENES/BLUEPRINTS/OTHERS/grass.tscn" id="2_fj62u"]
 
-[sub_resource type="Shader" id="Shader_xp5cl"]
+[sub_resource type="Shader" id="Shader_got4i"]
 code = "
 // NOTE: Shader automatically converted from Godot Engine 4.3.stable's ProceduralSkyMaterial.
 
@@ -97,30 +96,30 @@ void sky() {
 }
 "
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1gu8r"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_y4pbd"]
 fractal_lacunarity = 0.0
 fractal_gain = 0.0
 fractal_weighted_strength = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j4hsq"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5uolp"]
 width = 1024
 height = 1024
 seamless = true
-noise = SubResource("FastNoiseLite_1gu8r")
+noise = SubResource("FastNoiseLite_y4pbd")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8l2ey"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wgc5x"]
 seed = 1
 fractal_gain = 0.4
 fractal_weighted_strength = 0.4
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y8053"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tuq82"]
 width = 1024
 height = 1024
 seamless = true
-noise = SubResource("FastNoiseLite_8l2ey")
+noise = SubResource("FastNoiseLite_wgc5x")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_npesu"]
-shader = SubResource("Shader_xp5cl")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsnkc"]
+shader = SubResource("Shader_got4i")
 shader_parameter/sky_top_color = Color(0.385, 0.454, 0.55, 1)
 shader_parameter/sky_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
 shader_parameter/sky_curve = 0.15
@@ -139,36 +138,53 @@ shader_parameter/cloud_scale = Vector2(0.05, 0.05)
 shader_parameter/cloud_dist = 1.0
 shader_parameter/cloud_speed = 0.002
 shader_parameter/cloud_speed2 = 0.003
-shader_parameter/cloud_texture = SubResource("NoiseTexture2D_j4hsq")
-shader_parameter/cloud_texture2 = SubResource("NoiseTexture2D_y8053")
+shader_parameter/cloud_texture = SubResource("NoiseTexture2D_5uolp")
+shader_parameter/cloud_texture2 = SubResource("NoiseTexture2D_tuq82")
 
-[sub_resource type="Sky" id="Sky_np31p"]
-sky_material = SubResource("ShaderMaterial_npesu")
+[sub_resource type="Sky" id="Sky_axleg"]
+sky_material = SubResource("ShaderMaterial_nsnkc")
 
-[sub_resource type="Environment" id="Environment_ollus"]
+[sub_resource type="Environment" id="Environment_r8ern"]
 background_mode = 2
-sky = SubResource("Sky_np31p")
+sky = SubResource("Sky_axleg")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.2556
 
-[node name="Main" type="Node3D"]
-script = ExtResource("1_q3n4d")
-amount = 1
-
-[node name="Spawn_position" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_xkfmf")
 
 [node name="Timer" type="Timer" parent="."]
-one_shot = true
-autostart = true
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("3_uas63")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47206, 0.1, 0.19859)
+[node name="ZOMBERT" parent="." instance=ExtResource("1_pdd6q")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34282, 1.79427)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ollus")
+environment = SubResource("Environment_r8ern")
 
-[node name="ALWAYS RUN" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("4_67hq5")
+[node name="Grass" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.411372, 0, -7.99967)
 
-[node name="Node3D" parent="." instance=ExtResource("4_li0kw")]
+[node name="Grass2" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.411372, 0, -22.9997)
+
+[node name="Grass3" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 12.5886, 0, -7.99967)
+
+[node name="Grass4" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 12.5886, 0, -22.9997)
+
+[node name="Grass7" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 12.5886, 0, -7.99967)
+
+[node name="Grass8" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 12.5886, 0, -22.9997)
+
+[node name="Grass5" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -15.4114, 0, -7.99967)
+
+[node name="Grass6" parent="." instance=ExtResource("2_fj62u")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -15.4114, 0, -22.9997)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

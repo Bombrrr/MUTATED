@@ -8,6 +8,7 @@ extends Node3D
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("interact") and looked:
 		Global.data += size
+		Global.point += size * 5
 		self.queue_free()
 
 # Called when the node enters the scene tree for the first time.

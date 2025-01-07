@@ -14,3 +14,5 @@ var fov: int = 70
 var test = 0
 var card: bool = false
 var card_needed: bool = false
+var point: int = 0
+var health: int = 100

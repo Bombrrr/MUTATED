@@ -6,7 +6,7 @@ extends CharacterBody3D
 @export var toggle_sprint: bool = false
 @onready var crouch: bool = false
 @onready var sliding: bool = false
-@onready var left = KEY_A
+@onready var health: int = 100
 
 const base_speed = 2.5
 const JUMP_VELOCITY = 4.5
@@ -54,6 +54,8 @@ func _input(event: InputEvent) -> void:
 	
 	
 func _physics_process(delta: float) -> void:
+	
+	get_tree().call_group("enemy", "target_position", self.global_transform.origin)
 	
 	#Scanner text
 	if Global.card_needed:
@@ -141,3 +143,9 @@ func _on_animation_player_animation_started(anim_name: StringName) -> void:
 func _on_timer_2_timeout() -> void:
 	Global.card_needed = false
 	text = true
+
+func damage(amount):
+	health -= amount
+	if health < 1:
+		get_tree().change_scene_to_file("res://SCENES/MENU/jump.tscn")
+	print(health)

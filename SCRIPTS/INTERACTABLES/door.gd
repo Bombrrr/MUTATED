@@ -12,6 +12,8 @@ func _process(delta: float) -> void:
 
 
 func _on_card_scanner_color() -> void:
+	$"../Area3D".queue_free()
+	get_tree().call_group("enemy", "entered", false)
 	$Timer.start(3)
 
 

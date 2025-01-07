@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cnnekp1siotkw"]
+[gd_scene load_steps=23 format=3 uid="uid://cnnekp1siotkw"]
 
 [ext_resource type="Script" path="res://SCRIPTS/PLAYER/player.gd" id="1_1vqpu"]
 [ext_resource type="Texture2D" uid="uid://xch6sadbjfp6" path="res://IMAGES/FLASK.png" id="2_1a2d1"]
@@ -126,7 +126,9 @@ void fragment(){
 shader = SubResource("Shader_gonlv")
 shader_parameter/lod = 2.64
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rjomi"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["play"]]
 script = ExtResource("1_1vqpu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -307,6 +309,12 @@ scene_path = "res://SCENES/MENU/MENU.tscn"
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Timer2" type="Timer" parent="."]
+
+[node name="Area3D" type="Area3D" parent="." groups=["play"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_rjomi")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="pressed" from="Control/Pause menu/VBoxContainer/RESUME GAME" to="Control/Pause menu/VBoxContainer/RESUME GAME" method="_on_pressed"]

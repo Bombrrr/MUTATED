@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://x5vdieg0y2ci"]
+[gd_scene load_steps=22 format=3 uid="uid://x5vdieg0y2ci"]
 
 [ext_resource type="Script" path="res://SCRIPTS/GAME/lobby.gd" id="1_qumq7"]
 [ext_resource type="PackedScene" uid="uid://cwvsjpgd3ig3v" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR.tscn" id="2_12bq5"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://10muw43y4vcy" path="res://SCENES/BLUEPRINTS/FURNITURE/DOOR_C.tscn" id="7_7pdcw"]
 [ext_resource type="PackedScene" uid="uid://d3oj5b1p68emj" path="res://SCENES/BLUEPRINTS/FURNITURE/LIGHT.tscn" id="10_q28u3"]
 [ext_resource type="PackedScene" uid="uid://bp7ybsjgld5ta" path="res://SCENES/BLUEPRINTS/FURNITURE/CARD.tscn" id="10_u7nw7"]
+[ext_resource type="Script" path="res://SCENES/LEVELS/area_3d.gd" id="11_0bpu6"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_krysn"]
 viewport_path = NodePath("door/SubViewport")
@@ -41,6 +42,8 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_amcqu"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_28dti"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_qumq7")
@@ -298,4 +301,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3402, 4.30511, -0.197257)
 [node name="Light2" parent="." instance=ExtResource("10_q28u3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3772, 4.30511, -0.197257)
 
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("11_0bpu6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.99187, -12.9081, 0.0631206)
+shape = SubResource("BoxShape3D_28dti")
+
 [connection signal="visibility_changed" from="door2" to="door2" method="_on_visibility_changed"]
+[connection signal="area_entered" from="Area3D" to="Area3D" method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D" to="Area3D" method="_on_area_exited"]
